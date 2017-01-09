@@ -14,8 +14,9 @@ const RecipeBox = React.createClass({
     componentDidMount: function () {
         console.log('recipeboxDidMount');
     },
-    handleDelete: function() {
-        console.log('time to handle delete');
+    handleDelete: function(index) {
+        this.state.recipes.splice((index-1), 1);
+        this.setState({recipes: this.state.recipes});
     },
     handleEdit: function() {
         console.log('time to handle edit');

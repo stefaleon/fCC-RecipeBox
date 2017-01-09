@@ -21547,8 +21547,9 @@
 	    componentDidMount: function componentDidMount() {
 	        console.log('recipeboxDidMount');
 	    },
-	    handleDelete: function handleDelete() {
-	        console.log('time to handle delete');
+	    handleDelete: function handleDelete(index) {
+	        this.state.recipes.splice(index - 1, 1);
+	        this.setState({ recipes: this.state.recipes });
 	    },
 	    handleEdit: function handleEdit() {
 	        console.log('time to handle edit');
@@ -21635,8 +21636,12 @@
 	var Recipe = React.createClass({
 	    displayName: 'Recipe',
 
+	    onDelete: function onDelete() {
+	        this.props.onDelete(this.props.index);
+	    },
 	    render: function render() {
 	        var _props = this.props,
+	            index = _props.index,
 	            name = _props.name,
 	            ingredients = _props.ingredients,
 	            onEdit = _props.onEdit,
@@ -21646,6 +21651,12 @@
 	            'div',
 	            { className: 'recipe' },
 	            React.createElement(
+	                'h4',
+	                null,
+	                'Recipe #',
+	                index
+	            ),
+	            React.createElement(
 	                'h3',
 	                null,
 	                name
@@ -21653,12 +21664,12 @@
 	            React.createElement(Ingredients, { ingredients: ingredients }),
 	            React.createElement(
 	                'button',
-	                { className: 'btn btn-primary', onClick: onEdit, id: 'on-edit' },
+	                { className: 'btn btn-primary', onClick: this.onEdit, id: 'on-edit' },
 	                'Edit Recipe'
 	            ),
 	            React.createElement(
 	                'button',
-	                { className: 'btn btn-danger', onClick: onDelete, id: 'on-delete' },
+	                { className: 'btn btn-danger', onClick: this.onDelete, id: 'on-delete' },
 	                'Delete Recipe'
 	            )
 	        );
