@@ -13,8 +13,6 @@
 * *RecipeList*: Passes each recipe's data as props to the *Recipe* component via the mapping *renderRecipes* function.
 * *Recipe*: presents each recipe's name and passes data as props to the *Ingredients* component.
 * *Ingredients*: presents the recipe's ingredients.
-* *AddRecipe*: adds new recipes.
-
 
 
 #### Basic React Boilerplate

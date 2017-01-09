@@ -1,14 +1,12 @@
 const React = require('react');
 
 const RecipeBox = require('RecipeBox');
-const AddRecipe = require('AddRecipe');
 
 const Main = (props) => {
     return (
         <div>
             <div className="container recipe-box">
                 <RecipeBox />
-                <AddRecipe />
             </div>
             <footer>
                 <hr />
