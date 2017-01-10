@@ -14,9 +14,9 @@ const RecipeList = React.createClass({
             return recipes.map((recipe) => {
                 count += 1;
                 return (
-                    <Panel bsStyle="info" header={recipe.name} eventKey={count}>
+                    <Panel bsStyle="info" header={recipe.name} key={count} eventKey={count}>
                         <Recipe
-                            key={recipe.name}
+                            key={count}
                             {...recipe}
                             count={count}
                             onEdit={onEdit}

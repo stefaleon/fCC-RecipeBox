@@ -5,7 +5,7 @@
 }
 
 h1 {
-	margin: 1em;
+	margin: .7em;
 }
 
 footer {
@@ -21,6 +21,10 @@ footer {
 	padding: .2em;
 }
 
+Panel {
+	cursor: pointer;
+}
+
 button {
 	margin: .3em;
 }
@@ -30,8 +34,6 @@ button {
 }
 
 .recipe {
-	border: solid 1px #111;
-	border-radius: 5px;
 	margin-top: 1em;
 	margin-bottom: 2em;
 	padding: 2em;

@@ -40515,9 +40515,9 @@
 	                count += 1;
 	                return React.createElement(
 	                    Panel,
-	                    { bsStyle: 'info', header: recipe.name, eventKey: count },
+	                    { bsStyle: 'info', header: recipe.name, key: count, eventKey: count },
 	                    React.createElement(Recipe, _extends({
-	                        key: recipe.name
+	                        key: count
 	                    }, recipe, {
 	                        count: count,
 	                        onEdit: onEdit,
@@ -40547,6 +40547,10 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
+	var ReactBootstrap = __webpack_require__(180);
+
+	var Button = ReactBootstrap.Button;
+	var Glyphicon = ReactBootstrap.Glyphicon;
 
 	var Ingredients = __webpack_require__(434);
 
@@ -40576,27 +40580,18 @@
 	        return React.createElement(
 	            'div',
 	            { className: 'recipe' },
-	            React.createElement(
-	                'h4',
-	                null,
-	                'Recipe #',
-	                count
-	            ),
-	            React.createElement(
-	                'h3',
-	                null,
-	                name
-	            ),
 	            React.createElement(Ingredients, { ingredients: ingredients }),
 	            React.createElement(
-	                'button',
-	                { className: 'btn btn-primary', onClick: this.onEdit, id: 'on-edit' },
-	                'Edit Recipe'
+	                Button,
+	                { bsStyle: 'primary', onClick: this.onEdit },
+	                React.createElement(Glyphicon, { glyph: 'edit' }),
+	                ' Edit Recipe '
 	            ),
 	            React.createElement(
-	                'button',
-	                { className: 'btn btn-danger', onClick: this.onDelete, id: 'on-delete' },
-	                'Delete Recipe'
+	                Button,
+	                { bsStyle: 'danger', onClick: this.onDelete },
+	                React.createElement(Glyphicon, { glyph: 'trash' }),
+	                ' Delete Recipe '
 	            )
 	        );
 	    }
@@ -40608,29 +40603,39 @@
 /* 434 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var React = __webpack_require__(1);
+	var ReactBootstrap = __webpack_require__(180);
+
+	var ListGroup = ReactBootstrap.ListGroup;
+	var ListGroupItem = ReactBootstrap.ListGroupItem;
 
 	var Ingredients = React.createClass({
-	    displayName: "Ingredients",
+	    displayName: 'Ingredients',
 
 	    render: function render() {
 	        var count = 0;
 	        var mappedIngredients = this.props.ingredients.map(function (ingredient) {
 	            count += 1;
 	            return React.createElement(
-	                "div",
+	                'div',
 	                { key: count },
-	                count,
-	                ". ",
-	                ingredient
+	                React.createElement(
+	                    ListGroupItem,
+	                    null,
+	                    count,
+	                    '. ',
+	                    ingredient
+	                )
 	            );
 	        });
 	        return React.createElement(
-	            "div",
-	            { className: "ingredient" },
-	            mappedIngredients
+	            ListGroup,
+	            null,
+	            ' ',
+	            mappedIngredients,
+	            ' '
 	        );
 	    }
 	});

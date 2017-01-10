@@ -1,4 +1,8 @@
 const React = require('react');
+const ReactBootstrap = require('react-bootstrap');
+
+const Button = ReactBootstrap.Button;
+const Glyphicon = ReactBootstrap.Glyphicon;
 
 const Ingredients = require('Ingredients');
 
@@ -14,14 +18,12 @@ const Recipe = React.createClass({
     render: function () {
         var {count, name, ingredients, onEdit, onDelete} = this.props;
         return (
-            <div className="recipe">
-                <h4>Recipe #{count}</h4>
-                <h3>{name}</h3>
+            <div className="recipe">                
                 <Ingredients ingredients={ingredients} />
-                <button className="btn btn-primary" onClick={this.onEdit} id="on-edit">
-                    Edit Recipe</button>
-                <button className="btn btn-danger" onClick={this.onDelete} id="on-delete">
-                    Delete Recipe</button>
+                <Button bsStyle="primary" onClick={this.onEdit}>
+                    <Glyphicon glyph="edit" /> Edit Recipe </Button>
+                <Button bsStyle="danger" onClick={this.onDelete}>
+                    <Glyphicon glyph="trash" /> Delete Recipe </Button>
             </div>
         );
     }
