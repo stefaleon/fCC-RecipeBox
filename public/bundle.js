@@ -40493,6 +40493,10 @@
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var React = __webpack_require__(1);
+	var ReactBootstrap = __webpack_require__(180);
+
+	var Accordion = ReactBootstrap.Accordion;
+	var Panel = ReactBootstrap.Panel;
 
 	var Recipe = __webpack_require__(433);
 
@@ -40509,21 +40513,25 @@
 	            var count = 0;
 	            return recipes.map(function (recipe) {
 	                count += 1;
-	                return React.createElement(Recipe, _extends({
-	                    key: recipe.name
-	                }, recipe, {
-	                    count: count,
-	                    onEdit: onEdit,
-	                    onDelete: onDelete
-	                }));
+	                return React.createElement(
+	                    Panel,
+	                    { bsStyle: 'info', header: recipe.name, eventKey: count },
+	                    React.createElement(Recipe, _extends({
+	                        key: recipe.name
+	                    }, recipe, {
+	                        count: count,
+	                        onEdit: onEdit,
+	                        onDelete: onDelete
+	                    }))
+	                );
 	            });
 	        };
 	        return React.createElement(
 	            'div',
-	            null,
+	            { className: 'recipelist-campers container-fluid' },
 	            React.createElement(
-	                'div',
-	                { className: 'recipelist-campers container-fluid' },
+	                Accordion,
+	                null,
 	                renderRecipes()
 	            )
 	        );

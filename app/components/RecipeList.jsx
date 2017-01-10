@@ -1,4 +1,8 @@
 const React = require('react');
+const ReactBootstrap = require('react-bootstrap');
+
+const Accordion = ReactBootstrap.Accordion;
+const Panel = ReactBootstrap.Panel;
 
 const Recipe = require('Recipe');
 
@@ -10,21 +14,23 @@ const RecipeList = React.createClass({
             return recipes.map((recipe) => {
                 count += 1;
                 return (
-                    <Recipe
-                        key={recipe.name}
-                        {...recipe}
-                        count={count}
-                        onEdit={onEdit}
-                        onDelete={onDelete}
-                    />
+                    <Panel bsStyle="info" header={recipe.name} eventKey={count}>
+                        <Recipe
+                            key={recipe.name}
+                            {...recipe}
+                            count={count}
+                            onEdit={onEdit}
+                            onDelete={onDelete}
+                        />
+                    </Panel>
                 );
             });
         };
         return (
-            <div>
-                <div className="recipelist-campers container-fluid">
+            <div className="recipelist-campers container-fluid">
+                <Accordion>
                      {renderRecipes()}
-                </div>
+                </Accordion>
             </div>
         );
     }
