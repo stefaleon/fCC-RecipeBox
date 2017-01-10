@@ -9,11 +9,10 @@ const Button = ReactBootstrap.Button;
 const Modal = ReactBootstrap.Modal;
 const FormGroup = ReactBootstrap.FormGroup;
 const FormControl = ReactBootstrap.FormControl;
-const Tooltip = ReactBootstrap.Tooltip;
-const OverlayTrigger = ReactBootstrap.OverlayTrigger;
 const Glyphicon = ReactBootstrap.Glyphicon;
 
 const RecipeList = require('RecipeList');
+const ModalComponent = require('ModalComponent');
 
 const RecipeBox = React.createClass({
     getInitialState: function () {
@@ -24,23 +23,39 @@ const RecipeBox = React.createClass({
         ];
         return ({
             recipes,
-            showModal: false
+            showModal: false,
+            modalAddOrEdit: 'Add'
         });
     },
-    handleDelete: function(index) {
-        this.state.recipes.splice((index-1), 1);
+    delete: function(count) {
+        var index = count - 1;
+        this.state.recipes.splice(index, 1);
         this.setState({recipes: this.state.recipes});
     },
-    handleEdit: function() {
-        console.log('time to handle edit');
+    openToAdd: function() {
+        this.setState({
+            showModal: true,
+            modalAddOrEdit: 'Add',
+            name: '',
+            ingredients: ''
+        });
     },
-    open: function() {
-        this.setState({ showModal: true });
+    openToEdit: function(count, name, ingredients) {
+        console.log('in RecipeBox, in openToEdit, count is:', count);
+        console.log('in RecipeBox, in openToEdit, name is:', name);
+        console.log('in RecipeBox, in openToEdit, ingredients is:', ingredients);
+        this.setState({
+            showModal: true,
+            modalAddOrEdit: 'Edit',
+            count,
+            name,
+            ingredients
+        });
     },
     close: function() {
-        this.setState({ showModal: false });
+        this.setState({showModal: false});
     },
-    save: function() {
+    newSave: function() {
         var name = document.getElementById("nameFormControlId").value;
         var ingredients = document.getElementById("ingredientsFormControlId").value.split(",");
         if (name.length === 0) {alert("Please enter a recipe name!");}
@@ -50,49 +65,49 @@ const RecipeBox = React.createClass({
             this.close();
         }
     },
+    editSave: function(count) {
+        console.log('editSave fired! for count:', count);
+        var index = count - 1;
+        console.log('in editSave, index is:', index);
+        var name = document.getElementById("nameFormControlId").value;
+        var ingredients = document.getElementById("ingredientsFormControlId").value.split(",");
+        if (name.length === 0) {alert("Please enter a recipe name!");}
+        else {
+            var editedRecipe = {name, ingredients};
+            this.state.recipes.splice(index, 1, editedRecipe);
+            console.log("saving edited recipe! recipes is now: ", this.state.recipes);
+            this.close();
+        }
+    },
     render: function () {
-        var {recipes, showModal} = this.state;
+        var {count, name, ingredients, recipes, showModal, modalAddOrEdit, currentIndex} = this.state;
+        var title = (modalAddOrEdit === 'Add')? 'Add a Recipe' : 'Edit Recipe';
         return (
             <div>
 
                 <h1>fCC RecipeBox</h1>
 
-                <RecipeList recipes={recipes}
-                    onEdit={this.handleEdit}
-                    onDelete={this.handleDelete}
+                <RecipeList
+                    recipes={recipes}
+                    onEdit={this.openToEdit}
+                    onDelete={this.delete}
                 />
 
-                <Button bsStyle="success" onClick={this.open} id="add-or-edit">
+                <Button bsStyle="success" onClick={this.openToAdd} id="add-new-recipe-button">
                     <Glyphicon glyph="plus" /> Add a Recipe
                 </Button>
 
-                <Modal className="text-center" show={showModal} onHide={this.close}>
-
-                    <Modal.Header closeButton>
-                        <Modal.Title id="modalTitle">Add a Recipe</Modal.Title>
-                    </Modal.Header>
-
-                    <Modal.Body>
-                        <FormGroup id="nameFormGroupId">
-                            <FormControl type="text" placeholder="Name" id="nameFormControlId" />
-                        </FormGroup>
-                        <FormGroup id="ingredientsFormGroupId">
-                            <FormControl type="textarea"
-                                placeholder="Ingredients, separate by commas (,)"
-                                id="ingredientsFormControlId"
-                            />
-                        </FormGroup>
-                    </Modal.Body>
-
-                    <Modal.Footer>
-                        <div className="text-center">
-                            <Button bsStyle="success" onClick={this.save}>
-                                <Glyphicon glyph="save" /> Save</Button>
-                            <Button onClick={this.close}>Close</Button>
-                        </div>
-                    </Modal.Footer>
-
-                </Modal>
+                <ModalComponent
+                    count={count}
+                    name={name}
+                    ingredients={ingredients}
+                    showModal={showModal}
+                    modalAddOrEdit={modalAddOrEdit}
+                    modalTitle={title}
+                    onEditSave={this.editSave}
+                    onNewSave={this.newSave}
+                    onClose={this.close}
+                />
 
             </div>
         );

@@ -6,14 +6,14 @@ const RecipeList = React.createClass({
     render: function () {
         var {recipes, onEdit, onDelete} = this.props;
         var renderRecipes = () => {
-            var index = 0;
+            var count = 0;
             return recipes.map((recipe) => {
-                index += 1;
+                count += 1;
                 return (
                     <Recipe
                         key={recipe.name}
                         {...recipe}
-                        index={index}
+                        count={count}
                         onEdit={onEdit}
                         onDelete={onDelete}
                     />

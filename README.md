@@ -9,10 +9,11 @@
 * All new recipes I add are saved in my browser's local storage. If I refresh the page, these recipes will still be there.
 
 ### React Components
-* *RecipeBox*: handles state, passes the recipes' data as props to the *RecipesList* component, as well as the *onEdit* and *onDelete* handlers.
+* *RecipeBox*: handles state, passes the recipes' data as props to the *RecipesList* component, as well as the *onEdit* and *onDelete* handlers. Also passes props to the *Modal* component, including various handlers.
 * *RecipeList*: Passes each recipe's data as props to the *Recipe* component via the mapping *renderRecipes* function.
 * *Recipe*: presents each recipe's name and passes data as props to the *Ingredients* component.
 * *Ingredients*: presents the recipe's ingredients.
+* *ModalComponent*: presents the modal which is used in order to add or edit a recipe.
 
 
 #### Basic React Boilerplate
@@ -23,6 +24,7 @@
 * Express
 * React
 * ReactDOM
+* React-Bootstrap
 
 
 #### devDependencies
