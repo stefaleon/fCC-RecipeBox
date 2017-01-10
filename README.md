@@ -7,6 +7,7 @@
 * I can edit these recipes.
 * I can delete these recipes.
 * All new recipes I add are saved in my browser's local storage. If I refresh the page, these recipes will still be there.
+* Hint:  You should prefix your local storage keys on CodePen, i.e. _username_recipes
 
 ### React Components
 * *RecipeBox*: handles state, passes the recipes' data as props to the *RecipesList* component, as well as the *onEdit* and *onDelete* props that correspond to the editing and deleting handlers. Also passes many props to the modal component, for various properties and event handlers.

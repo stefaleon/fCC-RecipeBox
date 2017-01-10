@@ -16,16 +16,20 @@ const ModalComponent = require('ModalComponent');
 
 const RecipeBox = React.createClass({
     getInitialState: function () {
-        var recipes = [
+        const MY_RECIPES = [
           {name: 'Omelet', ingredients: ['Eggs', 'Butter', 'Milk']},
           {name: 'Stuffed Peppers', ingredients: [ 'Green Peppers', 'Rice' ]},
           {name: 'Beansoup', ingredients: [ 'Beans', 'Onions', 'Carrots' ]}
         ];
+        var recipes = JSON.parse(localStorage.getItem('_stefaleon_recipes')) || MY_RECIPES;
         return ({
             recipes,
             showModal: false,
             modalAddOrEdit: 'Add'
         });
+    },
+    componentDidUpdate () {
+        localStorage.setItem('_stefaleon_recipes', JSON.stringify(this.state.recipes));
     },
     delete: function(count) {
         var index = count - 1;
